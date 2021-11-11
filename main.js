@@ -9,6 +9,11 @@ class item {
     }
 
     createDiv(itemName) {
+
+        let checkbox = document.createElement('input');
+        checkbox.classList.add('item_checkbox');
+        checkbox.type = "checkbox";
+
         let input = document.createElement('input');
         input.value = itemName;
         input.disabled = true;
@@ -22,19 +27,25 @@ class item {
         editButton.innerHTML = 'EDIT';
         editButton.classList.add('editButton');
 
+        let doneButton = document.createElement('button');
+        doneButton.innerHTML = 'DONE';
+        doneButton.classList.add('doneButton');
+
         let deleteButton = document.createElement('button');
         deleteButton.innerHTML = 'DELETE';
         deleteButton.classList.add('deleteButton');
 
         container.appendChild(itemBox);
 
+        itemBox.appendChild(checkbox);
         itemBox.appendChild(input);
         itemBox.appendChild(editButton);
+        itemBox.appendChild(doneButton);
         itemBox.appendChild(deleteButton);
 
         editButton.addEventListener('click', () => this.edit(input));
+        doneButton.addEventListener('click', () => this.done(input, checkbox));
         deleteButton.addEventListener('click', () => this.delete(itemBox));
-        //item-box
 
     }
 
@@ -42,8 +53,12 @@ class item {
         input.disabled = !input.disabled;
     }
 
+    done(input, checkbox) {
+        input.style.textDecoration = "line-through";
+        checkbox.checked = true;  
+    }
+
     delete(itemBox) {
-        //input.style.textDecoration = "line-through";
         container.removeChild(itemBox);
     }
 
@@ -66,6 +81,11 @@ window.addEventListener('keydown', (e) => {
 })
 
 new item("Sport");
+new item("genug trinken");
+new item("Arzttermin ausmachen");
+new item("Yoga");
+new item("Meditation");
+new item("Ralf");
 
 
 
